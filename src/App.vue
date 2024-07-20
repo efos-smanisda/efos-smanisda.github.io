@@ -1,9 +1,13 @@
 <script setup>
   import { ref } from 'vue';
   const menuActive = ref(false);
+  const topvalue = ref(0);
   function toggleMenu() {
     menuActive.value = !menuActive.value;
   }
+  window.addEventListener("scroll", () => {
+        topvalue.value = scrollY;
+  })
 </script>
 
 <template>
@@ -12,7 +16,7 @@
   </div>
   
 	<!-- navbar -->
-	<nav class="navbar">
+	<nav class="navbar" :class="{sticky: topvalue > 20 && !(topvalue <= 20)}">
 		<div class="max-width">
 			<div class="logo"><a href="">EFOS SMANISDA</a></div>
           <ul class="menu" :class="{active: menuActive}">
@@ -23,7 +27,8 @@
             <li><a href="#contact">Contact</a></li>
           </ul>
           <div @click="toggleMenu()" class="menu-btn">
-            <font-awesome-icon icon="bars"></font-awesome-icon>
+            <font-awesome-icon icon="bars" v-if="!menuActive"></font-awesome-icon>
+            <font-awesome-icon icon="xmark" v-else-if="menuActive"></font-awesome-icon>
           </div>
       </div>
     </nav>
@@ -39,28 +44,29 @@
           <a href="#contact">Join us!</a>
         </div>
       </div>
-      <svg class="wave-down" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="aliceblue" fill-opacity="1" d="M0,288L80,266.7C160,245,320,203,480,208C640,213,800,267,960,293.3C1120,320,1280,320,1360,320L1440,320L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"></path></svg>
+      <svg class="wave-down" style="transform:rotate(0deg); transition: 0.3s" viewBox="0 0 1440 150" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-0" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(255, 215, 134, 1)" offset="0%"></stop><stop stop-color="rgba(255, 238, 162, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-0)" d="M0,75L60,65C120,55,240,35,360,37.5C480,40,600,65,720,65C840,65,960,40,1080,32.5C1200,25,1320,35,1440,47.5C1560,60,1680,75,1800,70C1920,65,2040,40,2160,27.5C2280,15,2400,15,2520,17.5C2640,20,2760,25,2880,30C3000,35,3120,40,3240,45C3360,50,3480,55,3600,55C3720,55,3840,50,3960,47.5C4080,45,4200,45,4320,47.5C4440,50,4560,55,4680,55C4800,55,4920,50,5040,47.5C5160,45,5280,45,5400,52.5C5520,60,5640,75,5760,87.5C5880,100,6000,110,6120,97.5C6240,85,6360,50,6480,37.5C6600,25,6720,35,6840,40C6960,45,7080,45,7200,40C7320,35,7440,25,7560,30C7680,35,7800,55,7920,60C8040,65,8160,55,8280,65C8400,75,8520,105,8580,120L8640,135L8640,150L8580,150C8520,150,8400,150,8280,150C8160,150,8040,150,7920,150C7800,150,7680,150,7560,150C7440,150,7320,150,7200,150C7080,150,6960,150,6840,150C6720,150,6600,150,6480,150C6360,150,6240,150,6120,150C6000,150,5880,150,5760,150C5640,150,5520,150,5400,150C5280,150,5160,150,5040,150C4920,150,4800,150,4680,150C4560,150,4440,150,4320,150C4200,150,4080,150,3960,150C3840,150,3720,150,3600,150C3480,150,3360,150,3240,150C3120,150,3000,150,2880,150C2760,150,2640,150,2520,150C2400,150,2280,150,2160,150C2040,150,1920,150,1800,150C1680,150,1560,150,1440,150C1320,150,1200,150,1080,150C960,150,840,150,720,150C600,150,480,150,360,150C240,150,120,150,60,150L0,150Z"></path></svg>
     </section>
 
   
 
     <!-- introduction -->
 
-    <!-- <section class="introduction" id="introduction">
+    <section class="introduction" id="introduction">
       <div class="max-width">
-        <h2 class="title">Introduction me</h2>
+        <h2 class="title">Introduction</h2>
         <div class="introduction-content">
           <div class="column left">
             <img src="https://c.tenor.com/nTum828MfzEAAAAC/shirakami-fubuki-fubuki.gif" alt="">
           </div>
           <div class="column right">
-            <div class="text">I'm Evan and I'm a <span class="typing-2"></span></div>
-            <p>Nothing here.</p>
-            <a href="#contact">Contact me</a>
+            <div class="text">Ya ini judul utama</div>
+            <p>Ini Deskripsinya, ini kan fontnya rada aneh ntar kalo mau diganti ngomong ae mase. Terus soal warna ntar malem ku garap. Sementara gini dulu, sibuk gereja.
+            </p>
+            <a href="#contact">Join us!</a>
           </div>
         </div>
       </div>
-    </section> -->
+    </section>
 
 
 
