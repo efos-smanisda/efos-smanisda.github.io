@@ -20,6 +20,7 @@ html{
   max-width: 1350px;
   padding: 0 80px;
   margin: auto;
+  z-index: 2;
 }
 
 /* navbar */
@@ -65,6 +66,10 @@ html{
 
 .navbar .menu li a{
   color: white;
+  background: -webkit-linear-gradient(rgb(255, 238, 162), rgb(255, 158, 98));
+  background-clip: content-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: 30px;
   font-weight: 500;
   margin-left: 25px;
@@ -73,8 +78,9 @@ html{
 }
 
 .navbar .menu li a:hover{
-  background: -webkit-linear-gradient(rgb(255, 238, 162), rgb(255, 158, 98));
-  background-clip: content-box;
+  color: white;
+  background: white;
+  background-clip: border-box;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -163,7 +169,8 @@ html{
   margin-top: 20px;
   border-radius: 15px;
   border: 2px solid rgb(103, 56, 24);
-  transition: all 5s ease;
+  /* transition: all 0.1s ease; */
+  text-shadow: 3px 1px rgb(103, 56, 24);
 }
 
 .home .home-content a:hover{
@@ -172,13 +179,14 @@ html{
   background-clip: content-box;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: none;
 }
 
 
 /* sections */
 
 section{
-  /*padding-bottom: 60px;*/
+  padding-bottom: 20px;
   position: relative;
 }
 
@@ -215,14 +223,14 @@ section .title::after{
   transform: translateX(-50%);
 }
 
-.introduction .introduction-content, .projects .projects-content, .skills .skills-content, .contact .contact-content{
+.introduction .introduction-content, .divisions .divisions-content, .sub-divisions .sub-divisions-content, .contact .contact-content{
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 }
 
-.introduction, .projects, .skills, .contact, footer{
+.introduction, .divisions, .sub-divisions, .contact, footer{
   font-family: 'harryPotter', sans-serif;
 }
 
@@ -265,162 +273,123 @@ section .title::after{
 
 .introduction .introduction-content .right a{
   display: inline-block;
-  background: lightskyblue;
+  background: rgb(103, 56, 24);
   color: white;
   font-size: 24px;
   padding: 10px 30px;
   margin-top: 20px;
   border-radius: 6px;
-  border: 2px solid lightskyblue;
+  border: 2px solid rgb(103, 56, 24);
   transition: all 0.3s ease;
 }
 
 .introduction .introduction-content .right a:hover{
-  color: lightskyblue;
+  color: rgb(103, 56, 24);
   background: none;
 }
 
 
-/* projects */
+/* divisions */
 
-.projects{
-  background: deepskyblue;
+.divisions{
+  background: rgb(103, 56, 24);
   color: white;
+  padding-bottom: 250px;
 }
 
-.projects .title::before{
+.divisions .title::before{
   background: white;
 }
 
-.projects .title::after{
-  content: "What i made";
-  background: deepskyblue;
+.divisions .title::after{
+  color: white;
+  content: "Our divisions";
+  background: rgb(103, 56, 24);
 }
 
-.projects .projects-content .card{
+.divisions .divisions-content .card{
   width: calc(33% - 20px);
   text-align: center;
-  background: lightskyblue;
-  border-radius: 6px;
-  padding: 20px 25px;
+  background: rgb(228, 145, 93);
+  border-radius: 12px;
+  padding: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.projects .projects-content .card:hover{
-  background: paleturquoise;
+.divisions .divisions-content .card:hover{
+  background: rgb(255, 172, 121);
 }
 
-.projects .projects-content .card .box{
+.divisions .divisions-content .card .box{
   transition: all 0.3s ease;
 }
 
-.projects .projects-content .card:hover .box{
-  transform: scale(1.05);
+.divisions .divisions-content .card:hover .box{
+  transform: scale(1.03);
 }
 
-.projects .projects-content .card i, .projects .projects-content .card svg{
-  font-size: 50px;
-  color: paleturquoise;
-  transition: color 0.3s ease;
+.divisions .divisions-content .card .img {
+  max-width: 100%;
+  border-radius: 6px;
 }
 
-.projects .projects-content .card:hover i, .projects .projects-content .card:hover svg{
-  font-size: 50px;
-  color: white;
-}
-
-.projects .projects-content .card .text{
-   font-size: 25px;
-   font-weight: 500;
+.divisions .divisions-content .card .text{
+   font-size: 40px;
    margin: 10px 0 7px 0;
 }
 
-/* skills */
-
-.skills{
-  background: aliceblue;
+.divisions .divisions-content .card p{
+  font-size: 24px;
 }
 
-.skills .title::after{
-  content: "What i know";
-  color: paleturquoise;
-  background: aliceblue;
+/* sub-divisions */
+
+.sub-divisions{
+  background: rgb(255, 238, 162);
 }
 
-.skills .skills-content .column{
-  width: calc(50% - 30px)
+.sub-divisions .title::after{
+  content: "Our sub divisions";
+  color: black;
+  background: rgb(255, 238, 162);
 }
 
-.skills .skills-content .left .text{
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 10px;
+.sub-divisions .sub-divisions-content .card{
+  width: calc(33% - 20px);
+  text-align: center;
+  background: rgb(103, 56, 24);
+  border-radius: 12px;
+  color: white;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.skills .skills-content .left p{
-  text-align: justify;
+.sub-divisions .sub-divisions-content .card:hover{
+  background: rgb(146, 78, 32);
 }
 
-.skills .skills-content .right .bars{
-  margin-bottom: 15px;
+.sub-divisions .sub-divisions-content .card .box{
+  transition: all 0.3s ease;
 }
 
-.skills .skills-content .right .info{
-  display: flex;
-  margin-bottom: 5px;
-  align-items: center;
-  justify-content: space-between;
+.sub-divisions .sub-divisions-content .card:hover .box{
+  transform: scale(1.05);
 }
 
-.skills .skills-content .right span{
-  font-weight: 500;
-  font-size: 18px;
+.sub-divisions .sub-divisions-content .card .img {
+  max-width: 100%;
+  border-radius: 6px;
 }
 
-.skills .skills-content .right .line{
-  height: 5px;
-  width: 100%;
-  background: deepskyblue;
-  position: relative;
+.sub-divisions .sub-divisions-content .card .text{
+   font-size: 40px;
+   margin: 10px 0 7px 0;
 }
 
-.skills .skills-content .right .line::before{
-  content: '';
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  left: 0;
-  top: 0;
-  background: paleturquoise;
-  transition: all 1.5s ease;
-}
-
-.skills .skills-content .right .html::before{
-  width: 0%;
-  transition: all 1.8s ease;
-}
-
-.skills .skills-content .right .css::before{
-  width: 0%;
-  transition: all 1.6s ease;
-}
-
-.skills .skills-content .right .js::before{
-  width: 0%;
-  transition: all 1.2s ease;
-}
-
-.skills .skills-content .right .htmlOn::before{
-  width: 80%;
-}
-
-.skills .skills-content .right .cssOn::before{
-  width: 40%;
-}
-
-.skills .skills-content .right .jsOn::before{
-  width: 60%;
+.sub-divisions .sub-divisions-content .card p{
+  font-size: 24px;
 }
 
 @keyframes html {
@@ -435,13 +404,18 @@ section .title::after{
 /* contact */
 
 .contact{
-  background: deepskyblue;
+  background: rgb(103, 56, 24);
   color: white;
+}
+
+.contact .title::before{
+  background: white;
 }
 
 .contact .title::after{
   content: "More introduction me";
-  background: deepskyblue;
+  background: rgb(103, 56, 24);
+  color: white;
 }
 
 .contact .contact-content .column{
@@ -449,13 +423,14 @@ section .title::after{
 }
 
 .contact .contact-content .text{
-  font-size: 20px;
+  font-size: 36px;
   font-weight: 400;
   margin-bottom: 10px;
 }
 
 .contact .contact-content .left p{
   text-align: justify;
+  font-size: 20px;
 }
 
 .contact .contact-content .left .icons{
@@ -464,7 +439,7 @@ section .title::after{
 
 .contact .contact-content .row{
   display: flex;
-  height: 65px;
+  height: 100px;
   align-items: center;
 }
 
@@ -472,19 +447,22 @@ section .title::after{
   margin-left: 30px;
 }
 
-.contact .contact-content .row i{
-  font-size: 25px;
-  color: paleturquoise;
+.contact .contact-content .row svg{
+  font-size: 35px;
+  color: white;
 }
 
 .contact .contact-content .info .head{
-  font-weight: 500;
+  font-size: 30px;
 }
 
-.contact .contact-content .right .text{
+.contact .contact-content .info .sub-title{
+  font-size: 30px;
+}
+
+.contact .contact-content .right{
+  justify-content: center;
   font-size: 20px;
-  font-weight: 400;
-  margin-bottom: 10px;
 }
 
 
@@ -494,15 +472,82 @@ section .title::after{
 
 footer{
   /* background: lightskyblue; */
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),  url("9687387cb690e2fd2451ab8541b75730.jpg") no-repeat center;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),  url("./bg.jpeg") no-repeat center;
   background-size: cover;
   background-attachment: fixed;
   padding: 40px 23px;
-  color: deepskyblue;
+  color: rgb(255, 238, 162);
+  font-size: 22px;
 }
 
 footer span a{
-  color: azure;
+  color: rgb(228, 145, 93);
+}
+
+footer .heart {
+  color: rgb(204,51,51);
+}
+
+/* links */
+.popCopy {
+  background-color: rgb(42, 42, 42);
+  color: white;
+  font-family: sans-serif;
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  right: -38px;
+  bottom: 60px;
+  z-index: 2;
+}
+
+.popCopy::before{
+  content: "";
+  width: 25px;
+  height: 25px;
+  background-color: rgb(42, 42, 42);
+  border-radius: 5px;
+  position: absolute;
+  transform: rotate(45deg);
+  bottom: -10px;
+  right: 45px;
+  z-index: -1;
+}
+
+.linkWrapper{
+  display: flex;
+  align-items: center;    
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+  width: 80%;
+}
+
+.links {
+  margin-top: 40px;
+  position: relative;
+}
+
+.link {
+  background-image: linear-gradient(rgb(255, 238, 162), rgb(255, 158, 98));
+  padding: 15px 10px;
+  border-radius: 10px;
+  box-shadow: 5px 5px rgb(103, 56, 24);
+  font-size: 25px;
+  width: 100%;    
+  position: relative;
+  display:list-item;
+  text-align: center;
+}
+
+.copyButton{
+  position: absolute;
+  right: 10px;
+  background-color: rgba(0,0,0,0);
+}
+
+.copy{
+  height: 20px;
 }
 
 
@@ -652,12 +697,12 @@ footer span a{
     flex: 100%;
   }
 
-  .projects .projects-content .card{
+  .divisions .divisions-content .card{
     width: calc(50% - 10px);
     margin-bottom: 20px;
   }
 
-  .skills .skills-content .column, .contact .contact-content .column{
+  .sub-divisions .sub-divisions-content .column, .contact .contact-content .column{
     width: 100%;
     margin-bottom: 35px;
   } 
@@ -680,7 +725,7 @@ footer span a{
     font-size: 20;
   }
 
-  .projects .projects-content .card{
+  .divisions .divisions-content .card{
     width: 100%;
   } 
 }
