@@ -697,12 +697,12 @@ footer .heart {
     flex: 100%;
   }
 
-  .divisions .divisions-content .card{
+  .divisions .divisions-content .card, .sub-divisions .sub-divisions-content .card {
     width: calc(50% - 10px);
     margin-bottom: 20px;
   }
 
-  .sub-divisions .sub-divisions-content .column, .contact .contact-content .column{
+  .contact .contact-content .column{
     width: 100%;
     margin-bottom: 35px;
   } 
@@ -725,7 +725,7 @@ footer .heart {
     font-size: 20;
   }
 
-  .divisions .divisions-content .card{
+  .divisions .divisions-content .card, .sub-divisions .sub-divisions-content .card{
     width: 100%;
   } 
 }
