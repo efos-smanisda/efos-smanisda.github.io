@@ -4,6 +4,7 @@
   const topvalue = ref(0);
   function toggleMenu() {
     menuActive.value = !menuActive.value;
+
   }
   window.addEventListener("scroll", () => {
         topvalue.value = scrollY;
@@ -11,6 +12,7 @@
   import linkList from './assets/link.json'
   const cd = ref(false)
   const popCopy = ref('none');
+
   function resetMenu(){
     popCopy.value = 'none';
     cd.value = false;
@@ -19,12 +21,39 @@
     navigator.clipboard.writeText(text);
     popCopy.value = `show${index}`;
     cd.value = true
-    console.log('Y')
   }
+
+  const imgs = ref({ 'debate': ['assets/debate-1.jpeg', 'assets/debate-2.jpeg'], 'stortell': ['assets/stortell-1.jpeg', 'assets/stortell-2.jpeg']})
+  const indexImgs = ref(0)
+  const timer = setInterval(next, 3000)
+
+  function next() {
+    if(indexImgs.value > imgs.value.length-1 ) return resetIndex();
+    indexImgs.value += 1;
+  }
+
+  function resetIndex() {
+    indexImgs.value = 0;
+  }
+
+  function imgNow(type) {
+    if (type == 'debate') return imgs.value['debate'][Math.abs(indexImgs.value) % imgs.value['debate'].length];
+    if (type == 'stortell') return imgs.value['stortell'][Math.abs(indexImgs.value) % imgs.value['debate'].length];
+    if (type == 'speech') return imgs.value['speech'][Math.abs(indexImgs.value) % imgs.value['debate'].length];
+  }
+
+  function getImageUrl(name) {
+    return new URL(`./${name}`, import.meta.url).href
+  }
+
+  function scrollTop() {
+    window.scrollTo(0,0);
+  }
+
 </script>
 
 <template>
-  <div class="scroll-up-btn">
+  <div class="scroll-up-btn" @click="scrollTop()" :class="{show: topvalue > 20 && !(topvalue <= 20) && !menuActive}">
     <font-awesome-icon icon="angle-up"></font-awesome-icon>
   </div>
   
@@ -33,11 +62,11 @@
 		<div class="max-width">
 			<div class="logo"><a href="">EFOS SMANISDA</a></div>
           <ul class="menu" :class="{active: menuActive}">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#introduction">Introduction</a></li>
-            <li><a href="#divisions">Divisions</a></li>
-            <li><a href="#sub-divisions">Sub Divisions</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a @click="toggleMenu()" href="#home">Home</a></li>
+            <li><a @click="toggleMenu()" href="#introduction">Introduction</a></li>
+            <li><a @click="toggleMenu()" href="#divisions">Divisions</a></li>
+            <!-- <li><a href="#sub-divisions">Sub Divisions</a></li> -->
+            <li><a @click="toggleMenu()" href="#contact">Contact</a></li>
           </ul>
           <div @click="toggleMenu()" class="menu-btn">
             <font-awesome-icon icon="bars" v-if="!menuActive"></font-awesome-icon>
@@ -69,12 +98,11 @@
         <h2 class="title">Introduction</h2>
         <div class="introduction-content">
           <div class="column left">
-            <img src="https://c.tenor.com/nTum828MfzEAAAAC/shirakami-fubuki-fubuki.gif" alt="">
+            <img src="./assets/logo.png" alt="">
           </div>
           <div class="column right">
-            <div class="text">Ya ini judul utama</div>
-            <p>Ini Deskripsinya, ini kan fontnya rada aneh ntar kalo mau diganti ngomong ae mase. Terus soal warna ntar malem ku garap. Sementara gini dulu, sibuk gereja.
-            </p>
+            <div class="text">English Federation Of Smanisda</div>
+            <p></p>
             <a href="#contact">Join us!</a>
           </div>
         </div>
@@ -91,15 +119,15 @@
         <h2 class="title">Divisions</h2>
         <div class="divisions-content">
           <div class="card project-1">
-            <div class="box">
-              <img src="./assets/bg.jpeg" alt="" srcset="" class="img">
+            <div class="box" v-for="img in [indexImgs]">
+              <img :src="getImageUrl(imgNow('stortell'))" alt="" srcset="" class="img">
               <div class="text">Storytelling</div>
               <p>Act of creating narratives through spoken or written to engage, entertain, and educate audiences. Come bring everyone to see your wonderful world of fantasies!</p>
             </div>
           </div>
           <div class="card">
-            <div class="box">
-              <img src="./assets/bg.jpeg" alt="" srcset="" class="img">
+            <div class="box" v-for="img in [indexImgs]">
+              <img :src="getImageUrl(imgNow('debate'))" alt="" srcset="" class="img">
               <div class="text">Debate</div>
               <p>Embark the progressive world with critical thinking and analyzing from diverse perspective.</p>
             </div>
@@ -113,12 +141,12 @@
           </div>
         </div>
       </div>
-      <svg class="wave-down" style="transform:rotate(0deg); transition: 0.3s" viewBox="0 0 1440 230" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-3" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(255, 238, 162, 1)" offset="0%"></stop><stop stop-color="rgba(255, 158, 98, 1)" offset="60%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-3)" d="M0,207L40,184C80,161,160,115,240,84.3C320,54,400,38,480,49.8C560,61,640,100,720,107.3C800,115,880,92,960,84.3C1040,77,1120,84,1200,103.5C1280,123,1360,153,1440,138C1520,123,1600,61,1680,34.5C1760,8,1840,15,1920,38.3C2000,61,2080,100,2160,99.7C2240,100,2320,61,2400,69C2480,77,2560,130,2640,138C2720,146,2800,107,2880,99.7C2960,92,3040,115,3120,122.7C3200,130,3280,123,3360,126.5C3440,130,3520,146,3600,145.7C3680,146,3760,130,3840,111.2C3920,92,4000,69,4080,84.3C4160,100,4240,153,4320,157.2C4400,161,4480,115,4560,99.7C4640,84,4720,100,4800,92C4880,84,4960,54,5040,53.7C5120,54,5200,84,5280,95.8C5360,107,5440,100,5520,92C5600,84,5680,77,5720,72.8L5760,69L5760,230L5720,230C5680,230,5600,230,5520,230C5440,230,5360,230,5280,230C5200,230,5120,230,5040,230C4960,230,4880,230,4800,230C4720,230,4640,230,4560,230C4480,230,4400,230,4320,230C4240,230,4160,230,4080,230C4000,230,3920,230,3840,230C3760,230,3680,230,3600,230C3520,230,3440,230,3360,230C3280,230,3200,230,3120,230C3040,230,2960,230,2880,230C2800,230,2720,230,2640,230C2560,230,2480,230,2400,230C2320,230,2240,230,2160,230C2080,230,2000,230,1920,230C1840,230,1760,230,1680,230C1600,230,1520,230,1440,230C1360,230,1280,230,1200,230C1120,230,1040,230,960,230C880,230,800,230,720,230C640,230,560,230,480,230C400,230,320,230,240,230C160,230,80,230,40,230L0,230Z"></path></svg>
+      <!-- <svg class="wave-down" style="transform:rotate(0deg); transition: 0.3s" viewBox="0 0 1440 230" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-3" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(255, 238, 162, 1)" offset="0%"></stop><stop stop-color="rgba(255, 158, 98, 1)" offset="60%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-3)" d="M0,207L40,184C80,161,160,115,240,84.3C320,54,400,38,480,49.8C560,61,640,100,720,107.3C800,115,880,92,960,84.3C1040,77,1120,84,1200,103.5C1280,123,1360,153,1440,138C1520,123,1600,61,1680,34.5C1760,8,1840,15,1920,38.3C2000,61,2080,100,2160,99.7C2240,100,2320,61,2400,69C2480,77,2560,130,2640,138C2720,146,2800,107,2880,99.7C2960,92,3040,115,3120,122.7C3200,130,3280,123,3360,126.5C3440,130,3520,146,3600,145.7C3680,146,3760,130,3840,111.2C3920,92,4000,69,4080,84.3C4160,100,4240,153,4320,157.2C4400,161,4480,115,4560,99.7C4640,84,4720,100,4800,92C4880,84,4960,54,5040,53.7C5120,54,5200,84,5280,95.8C5360,107,5440,100,5520,92C5600,84,5680,77,5720,72.8L5760,69L5760,230L5720,230C5680,230,5600,230,5520,230C5440,230,5360,230,5280,230C5200,230,5120,230,5040,230C4960,230,4880,230,4800,230C4720,230,4640,230,4560,230C4480,230,4400,230,4320,230C4240,230,4160,230,4080,230C4000,230,3920,230,3840,230C3760,230,3680,230,3600,230C3520,230,3440,230,3360,230C3280,230,3200,230,3120,230C3040,230,2960,230,2880,230C2800,230,2720,230,2640,230C2560,230,2480,230,2400,230C2320,230,2240,230,2160,230C2080,230,2000,230,1920,230C1840,230,1760,230,1680,230C1600,230,1520,230,1440,230C1360,230,1280,230,1200,230C1120,230,1040,230,960,230C880,230,800,230,720,230C640,230,560,230,480,230C400,230,320,230,240,230C160,230,80,230,40,230L0,230Z"></path></svg> -->
     </section>
 
     <!-- sub-divisions -->
 
-    <section class="sub-divisions" id="sub-divisions">
+    <!-- <section class="sub-divisions" id="sub-divisions">
       <div class="max-width">
         <h2 class="title">Sub Divisions</h2>
         <div class="sub-divisions-content">
@@ -129,40 +157,57 @@
               <p>Act of creating narratives through spoken or written to engage, entertain, and educate audiences. Come bring everyone to see your wonderful world of fantasies!</p>
             </div>
           </div>
-          <div class="card">
-            <div class="box">
-              <img src="./assets/bg.jpeg" alt="" srcset="" class="img">
+            <div class="card">
+            <div class="box" v-for="img in [indexImgs]">
+              <img :src="imgNow()" alt="" srcset="" class="img">
               <div class="text">Debate</div>
               <p>Embark the progressive world with critical thinking and analyzing from diverse perspective.</p>
             </div>
-          </div>
-          <div class="card">
+          </div> 
+              <div class="card">
             <div class="box">
-              <img src="./assets/bg.jpeg" alt="" srcset="" class="img">
+              <img :src="imgNow()" alt="" srcset="" class="img">
               <div class="text">Speech</div>
-              <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem, perspiciatis?</p>
+              <p>a</p>
             </div>
-          </div>
+          </div> 
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- contact -->
 
     <section class="contact" id="contact">
-      <svg class="wave-up" style="transform:rotate(180deg); transition: 0.3s" viewBox="0 0 1440 240" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-4" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(255, 238, 162, 1)" offset="0%"></stop><stop stop-color="rgba(255, 158, 98, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-4)" d="M0,168L40,176C80,184,160,200,240,192C320,184,400,152,480,116C560,80,640,40,720,28C800,16,880,32,960,60C1040,88,1120,128,1200,128C1280,128,1360,88,1440,92C1520,96,1600,144,1680,144C1760,144,1840,96,1920,64C2000,32,2080,16,2160,36C2240,56,2320,112,2400,136C2480,160,2560,152,2640,128C2720,104,2800,64,2880,60C2960,56,3040,88,3120,88C3200,88,3280,56,3360,40C3440,24,3520,24,3600,48C3680,72,3760,120,3840,144C3920,168,4000,168,4080,160C4160,152,4240,136,4320,120C4400,104,4480,88,4560,92C4640,96,4720,120,4800,128C4880,136,4960,128,5040,112C5120,96,5200,72,5280,60C5360,48,5440,48,5520,52C5600,56,5680,64,5720,68L5760,72L5760,240L5720,240C5680,240,5600,240,5520,240C5440,240,5360,240,5280,240C5200,240,5120,240,5040,240C4960,240,4880,240,4800,240C4720,240,4640,240,4560,240C4480,240,4400,240,4320,240C4240,240,4160,240,4080,240C4000,240,3920,240,3840,240C3760,240,3680,240,3600,240C3520,240,3440,240,3360,240C3280,240,3200,240,3120,240C3040,240,2960,240,2880,240C2800,240,2720,240,2640,240C2560,240,2480,240,2400,240C2320,240,2240,240,2160,240C2080,240,2000,240,1920,240C1840,240,1760,240,1680,240C1600,240,1520,240,1440,240C1360,240,1280,240,1200,240C1120,240,1040,240,960,240C880,240,800,240,720,240C640,240,560,240,480,240C400,240,320,240,240,240C160,240,80,240,40,240L0,240Z"></path></svg>
+      <!-- <svg class="wave-up" style="transform:rotate(180deg); transition: 0.3s" viewBox="0 0 1440 240" version="1.1" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sw-gradient-4" x1="0" x2="0" y1="1" y2="0"><stop stop-color="rgba(255, 238, 162, 1)" offset="0%"></stop><stop stop-color="rgba(255, 158, 98, 1)" offset="100%"></stop></linearGradient></defs><path style="transform:translate(0, 0px); opacity:1" fill="url(#sw-gradient-4)" d="M0,168L40,176C80,184,160,200,240,192C320,184,400,152,480,116C560,80,640,40,720,28C800,16,880,32,960,60C1040,88,1120,128,1200,128C1280,128,1360,88,1440,92C1520,96,1600,144,1680,144C1760,144,1840,96,1920,64C2000,32,2080,16,2160,36C2240,56,2320,112,2400,136C2480,160,2560,152,2640,128C2720,104,2800,64,2880,60C2960,56,3040,88,3120,88C3200,88,3280,56,3360,40C3440,24,3520,24,3600,48C3680,72,3760,120,3840,144C3920,168,4000,168,4080,160C4160,152,4240,136,4320,120C4400,104,4480,88,4560,92C4640,96,4720,120,4800,128C4880,136,4960,128,5040,112C5120,96,5200,72,5280,60C5360,48,5440,48,5520,52C5600,56,5680,64,5720,68L5760,72L5760,240L5720,240C5680,240,5600,240,5520,240C5440,240,5360,240,5280,240C5200,240,5120,240,5040,240C4960,240,4880,240,4800,240C4720,240,4640,240,4560,240C4480,240,4400,240,4320,240C4240,240,4160,240,4080,240C4000,240,3920,240,3840,240C3760,240,3680,240,3600,240C3520,240,3440,240,3360,240C3280,240,3200,240,3120,240C3040,240,2960,240,2880,240C2800,240,2720,240,2640,240C2560,240,2480,240,2400,240C2320,240,2240,240,2160,240C2080,240,2000,240,1920,240C1840,240,1760,240,1680,240C1600,240,1520,240,1440,240C1360,240,1280,240,1200,240C1120,240,1040,240,960,240C880,240,800,240,720,240C640,240,560,240,480,240C400,240,320,240,240,240C160,240,80,240,40,240L0,240Z"></path></svg> -->
       <div class="max-width">
-        <h2 class="title">Contact me</h2>
+        <h2 class="title">Contact us</h2>
         <div class="contact-content">
           <div class="column left">
             <div class="text">Know more introduction me by contacting us.</div>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, soluta?</p>
+            <ul class="links">
+              <li v-for="(link, name, index) in linkList" class="linkWrapper"><a class="link" :href="link" target="_blank">{{name}}</a>
+                <button @click="clipBoard(link, index)" class="copyButton">
+                  <font-awesome-icon icon="fa-solid fa-copy" />
+                </button>
+                <div v-if="popCopy == `show${index}`" class="popCopy">Copied link!</div>
+              </li>
+            </ul>
+          </div>
+          <div class="column right">
             <div class="icons">
+              <div class="row">
+                <font-awesome-icon icon="fa-solid fa-link" />
+                <div class="info">
+                  <div class="head">Link Pendaftaran</div>
+                  <div class="sub-title">bit.ly/EFOSREGISTRATION25</div>
+                </div>
+              </div>
               <div class="row">
                 <font-awesome-icon icon="fa-brands fa-whatsapp"></font-awesome-icon>
                 <div class="info">
-                  <div class="head">Whatsapp</div>
-                  <div class="sub-title">085</div>
+                  <div class="head">Whatsapp (Contact Person)</div>
+                  <div class="sub-title">+62 812-3185-5069 (Ilmi XI-9) </div>
                 </div>
               </div>
               <div class="row">
@@ -172,32 +217,15 @@
                   <div class="sub-title">@efossmanisda</div>
                 </div>
               </div>
-              <div class="row">
-                <i class="fas fa-envelope"></i>
-                <div class="info">
-                  <div class="head">Email</div>
-                  <div class="sub-title">evanadhiarjayohanes@gmail.com</div>
-                </div>
-              </div>
             </div>
-          </div>
-          <div class="column right">
             
-            <ul class="links">
-              <li v-for="(link, name, index) in linkList" class="linkWrapper"><a class="link" :href="link" target="_blank">{{name}}</a>
-                <button @click="clipBoard(link, index)" class="copyButton">
-                  <font-awesome-icon icon="fas fa-copy" />
-                </button>
-                <div v-if="popCopy == `show${index}`" class="popCopy">Copied link!</div>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
     </section>
 
     <footer>
-      <span>Created By <a href="#">Evan Adhiarja Yohanes (Habaru)</a> with <font-awesome-icon icon="fas fa-heart" class="heart"></font-awesome-icon> | <font-awesome-icon icon="fas fa-copyright"></font-awesome-icon> 2021 All rights reserved</span>
+      <span>Created By <a href="#">Evan Adhiarja Yohanes</a> with <font-awesome-icon icon="fas fa-heart" class="heart"></font-awesome-icon> | <font-awesome-icon icon="fas fa-copyright"></font-awesome-icon> 2024 All rights reserved</span>
     </footer>
 
 </template>

@@ -364,6 +364,8 @@ section .title::after{
   padding: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
+  overflow: hidden;
+  visibility: visible;
 }
 
 .sub-divisions .sub-divisions-content .card:hover{
@@ -413,7 +415,7 @@ section .title::after{
 }
 
 .contact .title::after{
-  content: "More introduction me";
+  content: "More our informations.";
   background: rgb(103, 56, 24);
   color: white;
 }
@@ -457,7 +459,7 @@ section .title::after{
 }
 
 .contact .contact-content .info .sub-title{
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .contact .contact-content .right{
@@ -538,16 +540,18 @@ footer .heart {
   position: relative;
   display:list-item;
   text-align: center;
+  color: black;
 }
 
 .copyButton{
   position: absolute;
   right: 10px;
   background-color: rgba(0,0,0,0);
+  border: none;
 }
 
-.copy{
-  height: 20px;
+.fa-copy{
+  font-size: 20px;
 }
 
 
@@ -557,7 +561,7 @@ footer .heart {
   position: fixed;
   height: 45px;
   width: 42px;
-  background: paleturquoise;
+  background: linear-gradient(rgb(255, 238, 162), rgb(255, 158, 98));
   right: 30px;
   bottom: 10px;
   text-align: center;
@@ -570,6 +574,8 @@ footer .heart {
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease;
+  
+  box-shadow: 2.5px 2.5px rgb(103, 56, 24);
 }
 
 .scroll-up-btn.show{
@@ -675,7 +681,7 @@ footer .heart {
   } 
 
   .home .home-content a{
-    font-size: 23;
+    font-size: 23px;
     padding: 10px 30px;
   }
 
@@ -687,13 +693,13 @@ footer .heart {
     max-width: 800px;
   }
 
-  .introduction .introduction-content .column .left{
+  .introduction .introduction-content .left{
     display: flex;
     justify-content: center;
     margin: 0 auto 60px;
   }
 
-  .introduction .introduction-content .column .right{
+  .introduction .introduction-content .right{
     flex: 100%;
   }
 
@@ -712,22 +718,32 @@ footer .heart {
   .max-width{
     padding: 0 23px;
   }
+  .home .home-content {
+    padding-top: 20vh;
+  }
 
   .home .home-content .text-2{
     font-size: 60px;
   }
 
   .home .home-content .text-3{
-    font-size: 32px;
+    font-size: 45px;
   }
 
   .home .home-content a{
-    font-size: 20;
+    font-size: 40px;
   }
 
-  .divisions .divisions-content .card, .sub-divisions .sub-divisions-content .card{
+  .divisions .divisions-content .card, .sub-divisions .sub-divisions-content .card  {
     width: 100%;
-  } 
+  }
+  section .title::before{
+    width:180px;
+  }
+  section .title::after{
+    font-size:20px;
+    bottom: -15px;
+  }
 }
 
 @media (max-width: 500px){
