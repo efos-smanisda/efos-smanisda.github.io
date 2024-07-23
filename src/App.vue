@@ -43,7 +43,8 @@
   }
 
   function getImageUrl(name) {
-    return new URL(`./${name}`, import.meta.url).href
+    const a = new URL(`./${name}`, import.meta.url).href;
+    return `${a}`.split('/').splice(3).join('/');
   }
 
   function scrollTop() {
